@@ -36,13 +36,12 @@ class RoomService extends Service {
     return result;
   }
 
-  async roomList() {
-    const objList = await this.app.mysql.select('room');
-    const result = [];
-    objList.forEach(function(obj) {
-      result.push(obj.name);
-    });
-    return result;
+  async roomList(data) {
+    const app = this.app;
+    const index = data.pageIndex;
+    const pageSize = data.pageSize;
+    if (isNaN(index) || isNaN(pageSize)) { return false; }
+    return app.mysql.query('select * from room limit ?, ?', [ index, pageSize ]);
   }
 }
 

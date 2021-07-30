@@ -14,7 +14,7 @@ class UserController extends Controller {
     const { ctx, app } = this;
     const res = await ctx.service.user.login(ctx.query);
     if (!res) {
-      ctx.body = 'login failed! ';
+      ctx.body = 'login failed!';
       ctx.status = 400;
     } else {
       const token = app.jwt.sign({
@@ -73,16 +73,16 @@ class UserController extends Controller {
     if (!res) {
       ctx.status = 400;
       ctx.body = 'not enter room';
+    } else {
+      ctx.status = 200;
+      ctx.body = 'success';
     }
-    ctx.status = 200;
-    ctx.body = 'success';
   }
 
   async retrieve() {
     const { ctx } = this;
     const userid = ctx.state.user.userid;
     const res = await ctx.service.user.retrive(userid, ctx.request.body);
-    console.log(res);
 
     if (!res) {
       ctx.status = 400;

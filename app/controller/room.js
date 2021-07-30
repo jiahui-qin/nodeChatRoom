@@ -42,7 +42,7 @@ class RoomController extends Controller {
   }
   async roomList() {
     const { ctx } = this;
-    const res = await ctx.service.room.roomList();
+    const res = await ctx.service.room.roomList(ctx.request.body);
     if (!res) {
       ctx.status = 400;
       ctx.body = 'Error';

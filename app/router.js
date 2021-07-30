@@ -6,7 +6,7 @@
 module.exports = app => {
   const { router, controller, jwt } = app;
   // room
-  router.post('/room', controller.room.createRoom);
+  router.post('/room', jwt, controller.room.createRoom);
   router.get('/room/:roomid', jwt, controller.room.getRoomInfo);
   router.get('/room/:roomid/users', jwt, controller.room.getRoomUsers);
   router.post('/room/roomList', jwt, controller.room.roomList);

@@ -6,7 +6,7 @@ class UserService extends Service {
 
   async getUserByName(username) {
     const app = this.app;
-    const user = await app.mysql.get('user', { username });
+    const user = await app.mysql.query('select firstName, lastName, email, phone from user where username = ?', username);
     return user;
   }
 
@@ -74,19 +74,28 @@ class UserService extends Service {
     }
     let startIndex = 0;
     const index = data.pageIndex;
-    const pageSize = data.pageSize;
+    let pageSize = data.pageSize;
     const recordAmount = await app.mysql.query('SELECT count(1) as amount from record where roomid = ? ', roomid);
     if (index < 0) {
       startIndex = recordAmount[0].amount + index * pageSize;
     } else {
       startIndex = index * pageSize;
     }
-    if (startIndex > recordAmount || startIndex < 0) {
-      return false;
+    const endIndex = startIndex + pageSize;
+
+    console.log('startIndex is ' + startIndex + ' endIndex is: ' + endIndex);
+
+    if (startIndex > recordAmount) {
+      startIndex = 0;
+      pageSize = 0;
+    } else if (startIndex < 0 && endIndex < 0) {
+      startIndex = 0;
+      pageSize = 0;
+    } else if (startIndex < 0) {
+      startIndex = 0;
     }
-    console.log('startIndex is ' + startIndex);
     try {
-      return app.mysql.query('SELECT id, text, unix_timestamp(timestamp) as timestamp from record where roomid = ? limit ?, ?', [ roomid, startIndex, pageSize ]);
+      return app.mysql.query('SELECT userid as id, text, unix_timestamp(timestamp) as timestamp from record where roomid = ? limit ?, ?', [ roomid, startIndex, pageSize ]);
     } catch (err) {
       return false;
     }
