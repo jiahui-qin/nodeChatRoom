@@ -6,7 +6,14 @@
 
 针对每一个聊天室的聊天内容，我觉得可以用influxdb来存储，聊天室的id可以直接用来做measurement，感觉存储结构看起来更合适。
 
+此外还有路由相关的，是不是用nginx之类来做代理速度会更快一些？
+
 ## 如何运行
-$ npm i
-$ npm run dev
-$ open http://localhost:7001/
+
+    $ npm i
+    $ npm run dev
+    $ open http://localhost:7001/
+
+## API列表
+
+可以参考标题网址里的列表，也可以参考本地[json](./chatRoomApi.json)
