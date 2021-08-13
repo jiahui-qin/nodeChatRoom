@@ -16,4 +16,8 @@
 
 ## API列表
 
-可以参考标题网址里的列表，也可以参考本地[json](./chatRoomApi.json)
+可以参考标题网址里的swagger文档，也可以参考本地[json](./chatRoomApi.json)
+
+## 数据库
+
+给在了这里[sql脚本](./chatroom.sql)
