@@ -1,0 +1,9 @@
+version: '3'
+services:
+  nodeChatRoom:
+    hostname: chatRoom
+    container_name: chatRoom
+    image: node/chat-room
+    restart: always
+    ports:
+      - "7001:7001"
